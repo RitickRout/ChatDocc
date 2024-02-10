@@ -1,6 +1,38 @@
+
 import styles from "./ChatWithDocumentsContainer.module.css";
 
-const ChatWithDocumentsContainer = () => {
+const ChatWithDocumentsContainer = ({files,setFiles}) => {
+ 
+  function dragOverHandler(ev) {
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+  }
+
+  function dropHandler(ev) {
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+
+    const droppedFiles = [];
+
+    if (ev.dataTransfer.items) {
+      // Use DataTransferItemList interface to access the file(s)
+      for (let i = 0; i < ev.dataTransfer.items.length; i++) {
+        // If dropped items aren't files, reject them
+        if (ev.dataTransfer.items[i].kind === 'file') {
+          const file = ev.dataTransfer.items[i].getAsFile();
+          droppedFiles.push(file);
+        }
+      }
+    } else {
+      // Use DataTransfer interface to access the file(s)
+      for (let i = 0; i < ev.dataTransfer.files.length; i++) {
+        droppedFiles.push(ev.dataTransfer.files[i]);
+      }
+    }
+
+    setFiles(prevFiles => [...prevFiles, ...droppedFiles]); // Update the state with new files
+  }
+  console.log(files, "FFFFFF")
   return (
     <main className={styles.divlayoutWrapper}>
       <div className={styles.divsidebarView}>
@@ -57,7 +89,7 @@ const ChatWithDocumentsContainer = () => {
             <div className={styles.sampleCollection}>[SAMPLE] Collection</div>
           </div>
           <div className={styles.filesList}>
-            <div className={styles.files}>3 files</div>
+            <div className={styles.files}>{files.length} files</div>
             <img
               className={styles.svgIcon4}
               loading="eager"
@@ -66,9 +98,45 @@ const ChatWithDocumentsContainer = () => {
             />
           </div>
         </div>
+        {files.length> 0? <>
+        {files?.map(item=><> 
+          <div className={styles.fileItemDate}>
+          <div className={styles.sVGCollectionIcon}>
+            <img
+              className={styles.svgIcon}
+              loading="eager"
+              alt=""
+              src="/svg.svg"
+            />
+            <div className={styles.sampleChatdocUser}>
+             {item.name}
+            </div>
+          </div>
+          <div className={styles.sidebarCollectionPreview}>
+            <div className={styles.divfileItemDate}>
+              <img
+                className={styles.svgIcon1}
+                loading="eager"
+                alt=""
+                src="/svg-1.svg"
+              />
+              <div className={styles.fileNameLabel}>2024-02-01 06:27:17</div>
+            </div>
+            <img
+              className={styles.svgIcon2}
+              loading="eager"
+              alt=""
+              src="/svg-2.svg"
+            />
+          </div>
+        </div></>)}
+        </>:<></> }
       </div>
       <div className={styles.divgutterHorizontal} />
       <section className={styles.divuploadPage}>
+      <div id="drop_zone"   className={styles.dropZone}
+        onDragOver={dragOverHandler}
+        onDrop={dropHandler}>
         <div className={styles.divleft}>
           <div className={styles.logoorLinkIcon}>
             <img
@@ -105,6 +173,7 @@ const ChatWithDocumentsContainer = () => {
               />
             </div>
           </div>
+        </div>
         </div>
         <div className={styles.footer}>
           <div className={styles.linkPolicyParent}>

@@ -107,3 +107,110 @@
   justify-content: flex-start;
   letter-spacing: normal;
 }
+.after {
+  height: 1.25rem;
+  width: 0.06rem;
+  position: relative;
+  background-color: #c7c7c7;
+}
+/* For screens smaller than 768px (e.g., mobile devices) */
+@media only screen and (max-width: 767px) {
+  .divheaderView {
+    padding: 0.56rem 1rem 0.69rem 1rem;
+    font-size: 1rem;
+  }
+  .chatdocT6m4SyopngIcon {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  .frameInput {
+    height: 1.1rem;
+    width: 3rem;
+  }
+  .heading1 {
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+  .linkSvg {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+  .after {
+    height: 1rem;
+    width: 0.06rem;
+  }
+  .chatDocTMsyopng {
+    padding: 0.2rem 0 0;
+  }
+}
+.divheaderView {
+  padding: 3vh 2.06rem; /* Adjusted padding using vh unit */
+}
+
+.chatdocT6m4SyopngIcon {
+  height: 5vh; /* Adjusted height using vh unit */
+  width: 5vh; /* Adjusted width using vh unit */
+}
+
+.frameInput {
+  height: 2.5vh; /* Adjusted height using vh unit */
+  width: 7vh; /* Adjusted width using vh unit */
+}
+
+.heading1 {
+  font-size: 2.5vh; /* Adjusted font size using vh unit */
+  line-height: 2.8vh; /* Adjusted line height using vh unit */
+}
+
+.linkSvg {
+  height: 3.5vh; /* Adjusted height using vh unit */
+  width: 3.5vh; /* Adjusted width using vh unit */
+}
+
+.after {
+  height: 1.5vh; /* Adjusted height using vh unit */
+}
+
+.chatdoccomByHtmltodesign {
+  min-height: calc(100vh - 3vh); /* Adjusted minimum height of the container */
+}
+
+@media only screen and (max-width: 767px) {
+  /* Media queries for smaller screens */
+  .divheaderView {
+    padding: 3vh 1rem; /* Adjusted padding using vh unit */
+  }
+
+  .chatdocT6m4SyopngIcon {
+    height: 4vh; /* Adjusted height using vh unit */
+    width: 4vh; /* Adjusted width using vh unit */
+  }
+
+  .frameInput {
+    height: 2vh; /* Adjusted height using vh unit */
+    width: 6vh; /* Adjusted width using vh unit */
+  }
+
+  .heading1 {
+    font-size: 2vh; /* Adjusted font size using vh unit */
+    line-height: 2.3vh; /* Adjusted line height using vh unit */
+  }
+
+  .linkSvg {
+    height: 3vh; /* Adjusted height using vh unit */
+    width: 3vh; /* Adjusted width using vh unit */
+  }
+
+  .after {
+    height: 1vh; /* Adjusted height using vh unit */
+  }
+}
+
+
+/* For screens larger than 768px (e.g., tablets, desktops) */
+@media only screen and (min-width: 768px) {
+  .divheaderView {
+    padding: 0.56rem 2.06rem 0.69rem 1.13rem;
+    font-size: 1.25rem;
+  }
+}

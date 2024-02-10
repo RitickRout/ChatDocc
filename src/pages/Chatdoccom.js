@@ -1,8 +1,10 @@
-import EfficiencyBoostCard from "../components/EfficiencyBoostCard";
 import ChatWithDocumentsContainer from "../components/ChatWithDocumentsContainer";
 import styles from "./Chatdoccom.module.css";
+import { useState } from "react";
 
 const ChatdoccomByHtmltodesign = () => {
+  const [files, setFiles] = useState([]); // State to hold the dropped files
+
   return (
     <div className={styles.chatdoccomByHtmltodesign}>
       <header className={styles.divheaderView}>
@@ -30,11 +32,11 @@ const ChatdoccomByHtmltodesign = () => {
           </div>
           <div className={styles.after} />
           <div className={styles.linkApi}>API</div>
-          <EfficiencyBoostCard />
+          <div className={styles.after} />
           <div className={styles.signIn}>Sign in</div>
         </div>
       </header>
-      <ChatWithDocumentsContainer />
+      <ChatWithDocumentsContainer files={files} setFiles={setFiles} />
     </div>
   );
 };
