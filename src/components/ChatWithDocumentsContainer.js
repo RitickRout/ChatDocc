@@ -1,37 +1,61 @@
 
+import { useEffect, useState } from "react";
 import styles from "./ChatWithDocumentsContainer.module.css";
+import uploadInBucket from '../bucketUpload /index';
+
 
 const ChatWithDocumentsContainer = ({files,setFiles}) => {
- 
+ const [selectedDoc , setSelectedDoc]= useState([])
+
+useEffect(()=>{
+  console.log(files,"ghhhhhhhhhh")
+  if(files.length){
+    files.map(item=>{
+
+    })
+  }
+},[])
+
+
   function dragOverHandler(ev) {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
   }
-
   function dropHandler(ev) {
-    // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
-
     const droppedFiles = [];
-
+  
     if (ev.dataTransfer.items) {
-      // Use DataTransferItemList interface to access the file(s)
       for (let i = 0; i < ev.dataTransfer.items.length; i++) {
-        // If dropped items aren't files, reject them
         if (ev.dataTransfer.items[i].kind === 'file') {
           const file = ev.dataTransfer.items[i].getAsFile();
+          console.log(file,"fileeeee")
           droppedFiles.push(file);
         }
       }
     } else {
-      // Use DataTransfer interface to access the file(s)
       for (let i = 0; i < ev.dataTransfer.files.length; i++) {
         droppedFiles.push(ev.dataTransfer.files[i]);
       }
     }
-
-    setFiles(prevFiles => [...prevFiles, ...droppedFiles]); // Update the state with new files
+  
+    // Use Promise.all to wait for all uploads to complete
+    Promise.all(droppedFiles.map(file => uploadInBucket({ file })))
+      .then(() => {
+        // All files uploaded successfully
+        console.log("All files uploaded successfully.");
+      })
+      .catch(error => {
+        // Handle errors if any upload fails
+        console.error("Error uploading files:", error);
+      });
+  
+     setFiles(prevFiles => [...prevFiles, ...droppedFiles]); // Update the state with new files
+    
   }
+
+
+
   console.log(files, "FFFFFF")
   return (
     <main className={styles.divlayoutWrapper}>
@@ -137,7 +161,7 @@ const ChatWithDocumentsContainer = ({files,setFiles}) => {
       <div id="drop_zone"   className={styles.dropZone}
         onDragOver={dragOverHandler}
         onDrop={dropHandler}>
-        <div className={styles.divleft}>
+        {1>0 ?<div className={styles.divleft}>
           <div className={styles.logoorLinkIcon}>
             <img
               className={styles.svgIcon5}
@@ -173,7 +197,7 @@ const ChatWithDocumentsContainer = ({files,setFiles}) => {
               />
             </div>
           </div>
-        </div>
+        </div>:<> <DocViewer documents={selectedDoc} /></>}
         </div>
         <div className={styles.footer}>
           <div className={styles.linkPolicyParent}>
