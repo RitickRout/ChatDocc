@@ -1,14 +1,13 @@
-import AWS from 'aws-sdk';
+import AWS from "aws-sdk";
 
-async function uploadInBucket({ file,List }) {
+async function uploadInBucket({ file, List }) {
   const S3_BUCKET = "chatdoc-files";
   const REGION = "region";
 
   AWS.config.update({
-    accessKeyId: "AKIA2GCBIVZW6FVS4SYG",
-    secretAccessKey: "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",
+    accessKeyId: process.env.accessKeyId,
+    secretAccessKey: process.env.secretAccessKey,
   });
-  
 
   const s3 = new AWS.S3({
     params: { Bucket: S3_BUCKET },
@@ -20,16 +19,19 @@ async function uploadInBucket({ file,List }) {
     Key: file.name,
     Body: file,
   };
-  s3.listObjectsV2({
-    Bucket: 'chatdoc-files',
-  }, (err, data) => {
-    if (err) {
-      console.error("Error listing objects:", err);
-    } else {
-      console.log("List of objects:", data.Contents);
-      // data.Contents contains an array of objects with information about each object in the bucket
+  s3.listObjectsV2(
+    {
+      Bucket: "chatdoc-files",
+    },
+    (err, data) => {
+      if (err) {
+        console.error("Error listing objects:", err);
+      } else {
+        console.log("List of objects:", data.Contents);
+        // data.Contents contains an array of objects with information about each object in the bucket
+      }
     }
-  });
+  );
 
   try {
     const data = await s3.putObject(params).promise();
@@ -43,4 +45,4 @@ async function uploadInBucket({ file,List }) {
   }
 }
 
-export default uploadInBucket
+export default uploadInBucket;
